@@ -74,3 +74,4 @@ Icon
 test.py
 *.sqlite3
 .env
+flagged
