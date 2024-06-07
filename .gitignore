@@ -71,5 +71,6 @@ venv/
 .AppleDouble
 .LSOverride
 Icon
+test.py
 *.sqlite3
 .env
