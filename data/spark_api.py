@@ -3,6 +3,7 @@ from typing import List
 from sparkai.llm.llm import ChatSparkLLM, ChunkPrintHandler
 from sparkai.core.messages import ChatMessage
 
+
 def chat(spark_config, message_content):
     spark = ChatSparkLLM(
             spark_api_url=spark_config["SPARK_URL"],

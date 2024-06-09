@@ -6,3 +6,10 @@
 - [ ] 支持LangChain
 - [ ] 多api支持
 - [ ] 插件支持
+
+## 配置
+
+使用`utils`下的`init_config.py`可以生成.env文件
+```shell
+python utils/init_config.py --filetype env
+```

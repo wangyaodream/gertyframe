@@ -9,6 +9,10 @@ CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
 PROJECT_DIR = os.path.abspath(os.path.join(CURRENT_DIR, os.pardir))
 
 
+def init_db_config():
+    pass
+
+
 def init_env_config():
     env_content = """\
 SPARK_APPID=""
@@ -21,7 +25,6 @@ SPARK_DOMAIN="general"
     with open(env_file_path, 'w', encoding='utf-8') as fp:
         fp.write(env_content)
     print(".env 文件创建成功！")
-
 
 
 def main():
