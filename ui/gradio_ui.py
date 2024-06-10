@@ -25,7 +25,7 @@ def run():
     demo = gr.Interface(
         fn=chat,
         inputs=[gr.TextArea()],
-        outputs=gr.JSON(),
+        outputs=gr.Markdown(),
     )
     demo.launch()
 

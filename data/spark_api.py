@@ -19,7 +19,8 @@ def chat(spark_config, message_content):
     handler = ChunkPrintHandler()
     if messages:
         a = spark.generate([messages], callbacks=[handler])
-        return a
+        # TODO 需要将结果进行保存，展示的结果只需要text值即可
+        return a.generations[0][0].text
     else:
         return None
 
