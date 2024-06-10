@@ -3,6 +3,7 @@ import os
 from dotenv import load_dotenv
 
 from data import spark_api
+from ui import gradio_ui
 
 
 def main():
@@ -19,8 +20,13 @@ def main():
 
     result = spark_api.chat(spark_config, message_content)
     print(result.generations[0][0].text)
+
+
+def test():
+    gradio_ui.run()
     
 
 if __name__ == "__main__":
-    main()
+    test()
+
 
