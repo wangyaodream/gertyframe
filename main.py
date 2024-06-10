@@ -18,9 +18,8 @@ def main():
     message_content = "请给我一些json的测试数据"
 
     result = spark_api.chat(spark_config, message_content)
-
-    print(result)
-
+    print(result.generations[0][0].text)
+    
 
 if __name__ == "__main__":
     main()
