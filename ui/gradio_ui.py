@@ -6,9 +6,11 @@ from dotenv import load_dotenv, find_dotenv
 from data import spark_api
 
 
-def chat(content):
+def chat(content, history):
     # 获取config,find_dotenv()方法会向父级目录寻找.env文件
     load_dotenv(find_dotenv())
+
+    history = history or []
 
     spark_config = {
         "SPARK_URL": os.getenv("SPARK_URL"),
@@ -18,14 +20,17 @@ def chat(content):
         "SPARK_DOMAIN": os.getenv("SPARK_DOMAIN")
     }
     result = spark_api.chat(spark_config, content)
-    return result
+    history.append((content, result))
+    return history, history
 
 
 def run():
+    chatbot = gr.Chatbot()
     demo = gr.Interface(
-        fn=chat,
-        inputs=[gr.TextArea()],
-        outputs=gr.Markdown(),
+        chat,
+        ["text", "state"],
+        [chatbot, "state"],
+        allow_flagging="never",
     )
     demo.launch()
 
