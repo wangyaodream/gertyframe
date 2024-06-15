@@ -4,7 +4,7 @@ from sparkai.llm.llm import ChatSparkLLM, ChunkPrintHandler
 from sparkai.core.messages import ChatMessage
 
 
-def chat(spark_config, message_content):
+def chat(spark_config, message_content, debug=False):
     spark = ChatSparkLLM(
             spark_api_url=spark_config["SPARK_URL"],
             spark_app_id=spark_config["SPARK_API_ID"],
@@ -20,7 +20,10 @@ def chat(spark_config, message_content):
     if messages:
         a = spark.generate([messages], callbacks=[handler])
         # TODO 需要将结果进行保存，展示的结果只需要text值即可
-        return a.generations[0][0].text
+        if debug:
+            return a
+        else:
+            return a.generations[0][0].text
     else:
         return None
 

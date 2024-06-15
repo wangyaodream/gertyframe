@@ -10,7 +10,8 @@ Base = declarative_base()
 class Messages(Base):
     __tablename__ = 'messages'
 
-    name = Column(String, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
+
     content = Column(String)
 
 

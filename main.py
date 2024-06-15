@@ -1,4 +1,5 @@
 import os
+import pprint
 
 from dotenv import load_dotenv
 
@@ -6,7 +7,7 @@ from data import spark_api
 from ui import gradio_ui
 
 
-def main():
+def main(debug=False):
     load_dotenv()
     spark_config = {
             "SPARK_URL": os.getenv("SPARK_URL"),
@@ -18,8 +19,10 @@ def main():
 
     message_content = "请给我一些json的测试数据"
 
-    result = spark_api.chat(spark_config, message_content)
-    print(result.generations[0][0].text)
+    result = spark_api.chat(spark_config, message_content, debug=debug)
+    print(result.generations)
+    print(result.llm_output)
+    pprint.pp(result.dict())
 
 
 def test():
@@ -27,6 +30,6 @@ def test():
     
 
 if __name__ == "__main__":
-    test()
+    main(debug=True)
 
 
