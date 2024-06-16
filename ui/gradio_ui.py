@@ -20,18 +20,32 @@ def chat(content, history):
         "SPARK_DOMAIN": os.getenv("SPARK_DOMAIN")
     }
     result = spark_api.chat(spark_config, content)
+    # TODO 需要让api也传递上下文
     history.append((content, result))
-    return history, history
+    return "", history
 
 
 def run():
     chatbot = gr.Chatbot()
-    demo = gr.Interface(
-        chat,
-        ["text", "state"],
-        [chatbot, "state"],
-        allow_flagging="never",
-    )
+    # demo = gr.Interface(
+    #     chat,
+    #     ["text", "state"],
+    #     [chatbot, "state"],
+    #     allow_flagging="never",
+    # )
+    with gr.Blocks() as demo:
+        chatbot = gr.Chatbot(
+            [],
+            elem_id="chatbot",
+            bubble_full_width=False
+        )
+        msg = gr.Textbox()
+
+        msg.submit(
+            chat,
+            [msg, chatbot],
+            [msg, chatbot]
+        )
     demo.launch()
 
 

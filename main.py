@@ -25,11 +25,11 @@ def main(debug=False):
     pprint.pp(result.dict())
 
 
-def test():
+def gui_launch():
     gradio_ui.run()
     
 
 if __name__ == "__main__":
-    main(debug=True)
+    gui_launch()
 
 
