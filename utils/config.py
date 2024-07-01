@@ -9,3 +9,9 @@ def get_config() -> bool:
         return True
     else:
         return False
+
+
+def get_project_dir():
+    pass
+
+

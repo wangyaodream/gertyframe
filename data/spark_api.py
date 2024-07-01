@@ -27,3 +27,8 @@ def chat(spark_config, message_content, debug=False):
     else:
         return None
 
+
+def message_handler():
+    # TODO 将获取到的内容进行解析并做下一步处理
+    pass
+
