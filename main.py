@@ -13,7 +13,7 @@ def main(debug=False):
             "SPARK_URL": os.getenv("SPARK_URL"),
             "SPARK_API_ID": os.getenv("SPARK_APPID"),
             "SPARK_API_SECRET": os.getenv("SPARK_API_SECRET"),
-            "SPARK_API_KEY": os.getenv("SPARK_APIKEY"),
+            "SPARK_API_KEY": os.getenv("SPARK_API_KEY"),
             "SPARK_DOMAIN": os.getenv("SPARK_DOMAIN")
             }
 
