@@ -12,6 +12,7 @@ PROJECT_DIR = os.path.abspath(os.path.join(CURRENT_DIR, os.pardir))
 def init_env_user():
     pass
 
+
 def init_env_config():
     # TODO 后期需要可视化界面来进行配置和添加
     env_content = """\
@@ -20,6 +21,8 @@ SPARK_API_SECRET=""
 SPARK_API_KEY=""
 SPARK_URL="wss://spark-api.xf-yun.com/v1.1/chat"
 SPARK_DOMAIN="general"
+
+YI_KEY=""
 
 MONGO_URI=""
 """
