@@ -16,12 +16,13 @@ def chat(message):
     )
     completion = client.chat.completions.create(
         model="yi-spark",
-        messages=[{'role': "user", "content": message}]
+        messages=[{'role': "user", "content": message}],
+        stream=True
     )
-    return completion
+    for chunk in completion:
+        print(chunk.choices[0].delta.content or "", end="", flush=True)
 
 
 if __name__ == '__main__':
-    msg = "请告诉我什么是YI模型"
-    result = chat(msg)
-    print(result.dict())
+    msg = "请告诉我go中的context是什么"
+    chat(msg)
