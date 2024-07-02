@@ -28,7 +28,12 @@ def chat(spark_config, message_content, debug=False):
         return None
 
 
-def message_handler():
-    # TODO 将获取到的内容进行解析并做下一步处理
-    pass
+def message_handler(item):
+    result = {}
+
+    run_id = item["run"]["run_id"]
+    llm_info = {
+        ""
+    }
+
 

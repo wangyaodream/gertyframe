@@ -1,27 +1,18 @@
-from sqlalchemy import create_engine, Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
+from pymongo import MongoClient
 
+class SparkDatabase:
+    
+    def __init__(self, collection_name: str, uri: str) -> None:
+        self.client = MongoClient(uri)
+        self.db = self.client["spark"]
+        self.collection = self.db[collection_name]
 
-engine = create_engine('sqlite:///data.sqlite3', echo=True)
-Base = declarative_base()
+    def insert(self, document):
+        insert_result = self.collection.insert_one(document)
+        return insert_result.inserted_id
 
-
-class Messages(Base):
-    __tablename__ = 'messages'
-
-    id = Column(Integer, primary_key=True, autoincrement=True)
-
-    content = Column(String)
-
-
-# 创建所有表
-Base.metadata.create_all(engine)
-
-
-Session = sessionmaker(bind=engine)
-session = Session()
-
+    def find(self, query):
+        return self.collection.find_one(query)
 
 
 
