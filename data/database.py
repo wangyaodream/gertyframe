@@ -2,7 +2,7 @@ from pymongo import MongoClient
 
 class SparkDatabase:
     
-    def __init__(self, collection_name: str, uri: str) -> None:
+    def __init__(self, collection_name: str, uri: str):
         self.client = MongoClient(uri)
         self.db = self.client["spark"]
         self.collection = self.db[collection_name]

@@ -5,6 +5,8 @@ from sparkai.llm.llm import ChatSparkLLM, ChunkPrintHandler
 from sparkai.core.messages import ChatMessage
 
 from .database import SparkDatabase
+from utils import config
+from utils.errors import MongoLoadError
 
 
 def chat(spark_config, message_content, debug=False):
@@ -31,13 +33,14 @@ def chat(spark_config, message_content, debug=False):
         return None
 
 
-# def message_handler(item):
-#     with SparkDatabase("chat", )
-#     result = {}
-#
-#     run_id = item["run"]["run_id"]
-#     llm_info = {
-#         ""
-#     }
+def message_handler(item):
+    if config.MONGO_URI:
+        handler = SparkDatabase("chat", config.MONGO_URI)
+        # TODO 构建需要插入的数据
+
+        handler.insert()
+    else:
+        raise MongoLoadError
+
 
 
