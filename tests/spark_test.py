@@ -15,6 +15,6 @@ def test_chat():
         "SPARK_DOMAIN": os.getenv("SPARK_DOMAIN")
         } 
         result = spark_api.chat(spark_config, "什么是rss订阅", debug=True)
-        print(result)
+        return result
     else:
         raise ConfigNotFoundError
