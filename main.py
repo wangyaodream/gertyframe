@@ -5,6 +5,7 @@ from dotenv import load_dotenv
 
 from data import spark_api
 from ui import gradio_ui
+from utils.config import get_config
 
 
 def main(debug=False):

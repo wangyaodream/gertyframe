@@ -1,8 +1,12 @@
+import os 
+
 
 from dotenv import load_dotenv, find_dotenv
 
+from .errors import ConfigNotFoundError
 
-def get_config() -> bool:
+
+def get_env() -> bool:
     env_path = find_dotenv(".env")
     if env_path:
         load_dotenv(env_path)
@@ -11,7 +15,13 @@ def get_config() -> bool:
         return False
 
 
-def get_project_dir():
-    pass
+if get_env():
+    SPARK_URL = os.getenv("SPARK_URL")
+    SPARK_API_ID = os.getenv("SPARK_APPID")
+    SPARK_API_SECRET = os.getenv("SPARK_API_SECRET")
+    SPARK_API_KEY = os.getenv("SPARK_API_KEY")
+    SPARK_DOMAIN = os.getenv("SPARK_DOMAIN")
 
-
+    MONGO_URI = os.getenv("MONGO_URI")
+else:
+    raise ConfigNotFoundError

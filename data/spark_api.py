@@ -1,7 +1,10 @@
+import os
 from typing import List
 
 from sparkai.llm.llm import ChatSparkLLM, ChunkPrintHandler
 from sparkai.core.messages import ChatMessage
+
+from .database import SparkDatabase
 
 
 def chat(spark_config, message_content, debug=False):
@@ -28,12 +31,13 @@ def chat(spark_config, message_content, debug=False):
         return None
 
 
-def message_handler(item):
-    result = {}
-
-    run_id = item["run"]["run_id"]
-    llm_info = {
-        ""
-    }
+# def message_handler(item):
+#     with SparkDatabase("chat", )
+#     result = {}
+#
+#     run_id = item["run"]["run_id"]
+#     llm_info = {
+#         ""
+#     }
 
 
