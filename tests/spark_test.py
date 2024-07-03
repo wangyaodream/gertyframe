@@ -13,5 +13,5 @@ def test_chat():
     "SPARK_DOMAIN": config.SPARK_DOMAIN
     } 
     print(spark_config)
-    result = spark_api.chat(spark_config, "什么是rss订阅", debug=True)
+    result = spark_api.chat(spark_config, "什么是rss订阅")
     return result

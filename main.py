@@ -5,25 +5,23 @@ from dotenv import load_dotenv
 
 from data import spark_api
 from ui import gradio_ui
-from utils.config import get_config
+from utils import config
 
 
 def main(debug=False):
     load_dotenv()
     spark_config = {
-            "SPARK_URL": os.getenv("SPARK_URL"),
-            "SPARK_API_ID": os.getenv("SPARK_APPID"),
-            "SPARK_API_SECRET": os.getenv("SPARK_API_SECRET"),
-            "SPARK_API_KEY": os.getenv("SPARK_API_KEY"),
-            "SPARK_DOMAIN": os.getenv("SPARK_DOMAIN")
+            "SPARK_URL": config.SPARK_URL,
+            "SPARK_API_ID": config.SPARK_API_ID,
+            "SPARK_API_SECRET": config.SPARK_API_SECRET,
+            "SPARK_API_KEY": config.SPARK_API_KEY,
+            "SPARK_DOMAIN": config.SPARK_DOMAIN
             }
 
     message_content = "请给我一些json的测试数据"
 
     result = spark_api.chat(spark_config, message_content, debug=debug)
-    print(result.generations)
-    print(result.llm_output)
-    pprint.pp(result.dict())
+    return result
 
 
 def gui_launch():
