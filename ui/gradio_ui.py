@@ -52,9 +52,7 @@ def run():
         task_history = gr.State([])
 
         with gr.Row():
-            empty_btn = gr.Button("Clear History")
             submit_btn = gr.Button("Submit")
-            regen_btn = gr.Button("Regenerate")
 
         submit_btn.click(chat, [msg, chatbot], [chatbot])
 
