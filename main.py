@@ -8,7 +8,7 @@ from ui import gradio_ui
 from utils import config
 
 
-def main(debug=False):
+def main():
     load_dotenv()
     spark_config = {
             "SPARK_URL": config.SPARK_URL,
@@ -20,7 +20,7 @@ def main(debug=False):
 
     message_content = "请给我一些json的测试数据"
 
-    result = spark_api.chat(spark_config, message_content, debug=debug)
+    result = spark_api.chat(spark_config, message_content)
     return result
 
 
