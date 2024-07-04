@@ -1,68 +1,54 @@
-import os
 
 import gradio as gr
-from dotenv import load_dotenv, find_dotenv
+from openai import OpenAI
 
-from data import spark_api
+from utils import config
+
+API_BASE = "https://api.lingyiwanwu.com/v1"
+API_KEY = config.YI_KEY
+
+client = OpenAI(
+    api_key=API_KEY,
+    base_url=API_BASE
+)
 
 
-def chat(content, chatbot):
-    # 获取config,find_dotenv()方法会向父级目录寻找.env文件
-    load_dotenv(find_dotenv())
-
-    chatbot.append((content, ""))
-
-    full_response = ""
-    response = ""
-
-    spark_config = {
-        "SPARK_URL": os.getenv("SPARK_URL"),
-        "SPARK_API_ID": os.getenv("SPARK_APPID"),
-        "SPARK_API_SECRET": os.getenv("SPARK_API_SECRET"),
-        "SPARK_API_KEY": os.getenv("SPARK_APIKEY"),
-        "SPARK_DOMAIN": os.getenv("SPARK_DOMAIN")
-    }
-    result = spark_api.chat(spark_config, content)
-
-    if result:
-        for message in result:
-            if message:
-                response += message
-                chatbot[-1] = (content, response)
-                yield message
-    else:
-        return None
+def call_llm_api(message):
+    completion = client.chat.completions.create(
+        model="yi-spark",
+        messages=[{'role': 'user', 'content': message}],
+        stream=True
+    )
+    return completion
 
 
 def run():
-    # chatbot = gr.Chatbot(label="Chatbot", elem_classes="control-height")
-    # demo = gr.Interface(
-    #     chat,
-    #     ["text", "state"],
-    #     [chatbot, "state"],
-    #     allow_flagging="never",
-    # )
+
     with gr.Blocks() as demo:
-        chatbot = gr.Chatbot(
-            [],
-            elem_id="chatbot",
-            bubble_full_width=False
+        chatbot = gr.Chatbot()
+        msg = gr.Textbox()
+        clear = gr.Button("Clear")
+
+        def user(user_message, history):
+            return "", history + [[user_message, None]]
+
+        def bot(history):
+            user_message = history[-1][0]
+            bot_message = call_llm_api(user_message)
+            history[-1][1] = ""
+            for chunk in bot_message:
+                history[-1][1] += chunk.choices[0].delta.content or ""
+                yield history
+
+        msg.submit(user, [msg, chatbot], [msg, chatbot], queue=False).then(
+            bot, chatbot, chatbot
         )
-        msg = gr.Textbox(lines=2, label="Input")
-        task_history = gr.State([])
+        clear.click(lambda: None, None, chatbot, queue=False)
 
-        with gr.Row():
-            submit_btn = gr.Button("Submit")
-
-        submit_btn.click(chat, [msg, chatbot], [chatbot])
-
-        # msg.submit(
-        #     chat,
-        #     [msg, chatbot],
-        #     [msg, chatbot]
-        # )
+    demo.queue()
     demo.launch()
 
 
 if __name__ == "__main__":
     run()
+
