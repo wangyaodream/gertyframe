@@ -2,24 +2,16 @@
 import gradio as gr
 from openai import OpenAI
 
-from utils import config
-
-API_BASE = "https://api.lingyiwanwu.com/v1"
-API_KEY = config.YI_KEY
-
-client = OpenAI(
-    api_key=API_KEY,
-    base_url=API_BASE
-)
+from data import yi_api
 
 
-def call_llm_api(message):
-    completion = client.chat.completions.create(
-        model="yi-spark",
-        messages=[{'role': 'user', 'content': message}],
-        stream=True
-    )
-    return completion
+# def call_llm_api(message):
+#     completion = client.chat.completions.create(
+#         model="yi-spark",
+#         messages=[{'role': 'user', 'content': message}],
+#         stream=True
+#     )
+#     return completion
 
 
 def run():
@@ -34,7 +26,7 @@ def run():
 
         def bot(history):
             user_message = history[-1][0]
-            bot_message = call_llm_api(user_message)
+            bot_message = yi_api.chat(user_message)
             history[-1][1] = ""
             for chunk in bot_message:
                 history[-1][1] += chunk.choices[0].delta.content or ""
