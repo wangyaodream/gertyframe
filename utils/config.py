@@ -23,7 +23,7 @@ if get_env():
     SPARK_DOMAIN = os.getenv("SPARK_DOMAIN")
 
     YI_KEY = os.getenv("YI_KEY")
-
+    BIGMODEL_KEY = os.getenv("BIGMODEL_APIKEY")
     MONGO_URI = os.getenv("MONGO_URI")
 else:
     raise ConfigNotFoundError
