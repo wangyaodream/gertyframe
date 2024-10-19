@@ -50,3 +50,7 @@ def run():
 
     # 启动Gradio应用
     demo.launch()
+
+
+if __name__ == "__main__":
+    run()
